@@ -13,8 +13,12 @@ app.logger.addHandler(file_handler)
 def trigger():
 	# Get repo and commit id from request body
 	# Check travis-ci
-	subprocess.call(['git', 'pull'], shell = True)
-	return "triggered"
+	repoPath='/home/ubuntu/go-code/src/github.com/ed0wolf/comingsoon'
+	pull(repoPath)
+	return 'pulled '+repoPath
+
+def pull(repoPath):
+	subprocess.Popen(['git', 'pull'], cwd=repoPath, shell=True)
 
 if __name__ == "__main__":
 	app.run(host='0.0.0.0', debug=True)
