@@ -11,11 +11,10 @@ app.logger.addHandler(file_handler)
 
 @app.route("/trigger", methods=['POST'])
 def trigger():
-	# GitHub triggers calls endpoint with a SHA 
+	# Get repo and commit id from request body
 	# Check travis-ci
-	# If OK pull master from github
-	#subprocess.call(['git', 'pull'], shell = True)
-	return "Hello World!"
+	subprocess.call(['git', 'pull'], shell = True)
+	return "triggered"
 
 if __name__ == "__main__":
 	app.run(host='0.0.0.0', debug=True)
