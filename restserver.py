@@ -26,7 +26,7 @@ def trigger():
 
 
 def pull(repoPath):
-	subprocess.Popen(['git pull'], cwd=repoPath, shell=True)
+	subprocess.Popen(['git pull --ff-only'], cwd=repoPath, shell=True)
 
 
 if __name__ == '__main__':

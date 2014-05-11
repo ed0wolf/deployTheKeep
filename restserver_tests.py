@@ -24,7 +24,7 @@ class FlaskrTestCase(TestCase):
 		response = self.client.post('/trigger', data=json.dumps(payload))
 
 		self.assertEqual(response.status_code, 200)
-		mock_subprocess_call.assert_called_with(['git pull'], shell=True, cwd='/home/ubuntu/go-code/src/github.com/ed0wolf/'+repoName)
+		mock_subprocess_call.assert_called_with(['git pull --ff-only'], shell=True, cwd='/home/ubuntu/go-code/src/github.com/ed0wolf/'+repoName)
 
 
 	@patch('subprocess.Popen')
