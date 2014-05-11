@@ -18,7 +18,7 @@ def trigger():
 	return 'pulled '+repoPath
 
 def pull(repoPath):
-	subprocess.Popen(['git', 'pull'], cwd=repoPath, shell=True)
+	subprocess.Popen(['git pull'], cwd=repoPath, shell=True)
 
 if __name__ == "__main__":
 	app.run(host='0.0.0.0', debug=True)
