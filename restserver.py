@@ -9,16 +9,25 @@ file_handler = FileHandler("debug.log","a")
 file_handler.setLevel(logging.WARNING)
 app.logger.addHandler(file_handler)
 
-@app.route("/trigger", methods=['POST'])
+pathToRepos = '/home/ubuntu/go-code/src/github.com/ed0wolf/'
+
+@app.route('/trigger', methods=['POST'])
 def trigger():
-	# Get repo and commit id from request body
-	# Check travis-ci
-	repoPath='/home/ubuntu/go-code/src/github.com/ed0wolf/comingsoon'
+	# TODO: Check status in travis-ci before pulling
+	payload = request.get_json(force=True)
+
+	if(payload['ref'] != 'refs/heads/master'):
+		return "non-master push"
+
+	repoPath = pathToRepos+payload['repository']['name']
+
 	pull(repoPath)
 	return 'pulled '+repoPath
+
 
 def pull(repoPath):
 	subprocess.Popen(['git pull'], cwd=repoPath, shell=True)
 
-if __name__ == "__main__":
+
+if __name__ == '__main__':
 	app.run(host='0.0.0.0', debug=True)
